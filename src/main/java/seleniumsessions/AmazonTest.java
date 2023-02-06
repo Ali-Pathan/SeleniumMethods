@@ -1,27 +1,31 @@
 package seleniumsessions;
 
+import org.openqa.selenium.WebDriver;
+
 public class AmazonTest {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 
-		String browser = "chrome";
-
+		String browserName = "firefox";
+		
 		BrowserUtil brUtil = new BrowserUtil();
-		brUtil.launchBrowser(browser);
-
+		
+		brUtil.launchBrowser(browserName);
+		
 		brUtil.launchUrl("https://www.amazon.com");
-
-		String title = brUtil.getPageTitle();
-		if (title.contains("Amazon")) {
-			System.out.println("correct title -- PASS");
-		} else {
-			System.out.println("incorrect title -- PASS");
-
+		
+		String actTitle = brUtil.getPageTitle();
+		System.out.println(actTitle);
+		
+		//validation point
+		if(actTitle.contains("Amazon")) {
+			System.out.println("correct title");
 		}
-
-		brUtil.getPageUrl();
-		brUtil.closeBrowser();
-
+		else {
+			System.out.println("incorrect title");
+		}
+		
+		
 	}
 
 }

@@ -6,20 +6,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-
 public class CustomWait {
 
 	static WebDriver driver;
 
 	public static void main(String[] args) {
-		WebDriverManager.chromedriver().setup();
+		// WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();// browser - ch
 
 		driver.get("https://www.freshworks.com/");
 
 		By support = By.linkText("Support11");
-		
+
 		retryingElement(support, 10, 2000).click();
 
 	}
@@ -52,7 +50,7 @@ public class CustomWait {
 			attempts++;
 
 		}
-		
+
 		if (element == null) {
 			try {
 				throw new Exception("ELEMENTNOTFOUNDEXCEPTION");
@@ -67,7 +65,7 @@ public class CustomWait {
 		return element;
 
 	}
-	
+
 	public static WebElement retryingElement(By locator, int timeOut, int pollingTime) {
 
 		WebElement element = null;
@@ -92,7 +90,7 @@ public class CustomWait {
 			attempts++;
 
 		}
-		
+
 		if (element == null) {
 			try {
 				throw new Exception("ELEMENTNOTFOUNDEXCEPTION");

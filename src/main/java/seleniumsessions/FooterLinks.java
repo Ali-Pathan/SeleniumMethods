@@ -8,8 +8,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-
 public class FooterLinks {
 
 	static WebDriver driver;
@@ -21,7 +19,7 @@ public class FooterLinks {
 		// tag name : select --> option
 		// Select class in Selenium
 
-		WebDriverManager.chromedriver().setup();
+//	WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();
 		driver.get("https://naveenautomationlabs.com/opencart/");
 

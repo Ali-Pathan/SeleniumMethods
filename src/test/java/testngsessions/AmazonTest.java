@@ -10,15 +10,13 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-
 public class AmazonTest {
 
 	WebDriver driver;
 
 	@BeforeTest
 	public void setup() {
-		WebDriverManager.chromedriver().setup();
+		// WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));

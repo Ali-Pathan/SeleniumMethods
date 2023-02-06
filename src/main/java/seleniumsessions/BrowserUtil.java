@@ -1,39 +1,32 @@
 package seleniumsessions;
 
-import org.openqa.selenium.WebDriver;
+import java.io.File;
 import java.net.URL;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.safari.SafariDriver;
-
-import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BrowserUtil {
 
-	private WebDriver driver;
+	static WebDriver driver;
 
-	/**
-	 * this method is used to initialize the driver on the basis of browser name
-	 * 
-	 * @param browser
-	 * @throws Exception
-	 */
-	public WebDriver launchBrowser(String browser) {
-		System.out.println("browser name is : " + browser);
+	public WebDriver launchBrowser(String browserName) {
+		System.out.println("browser name is : " + browserName);
 
-		switch (browser.toLowerCase()) {
+		switch (browserName.toLowerCase()) {
 		case "chrome":
-			// System.setProperty("webdriver.chrome.driver",
-			// "/Users/naveenautomationlabs/Downloads/chromedriver");
-			WebDriverManager.chromedriver().setup();
+			System.setProperty("webdriver.chrome.driver", "/Users/naveenautomationlabs/Downloads/chromedriver");
 			driver = new ChromeDriver();
 			break;
 
 		case "firefox":
-			System.setProperty("webdriver.gecko.driver","/Users/naveenautomationlabs/Downloads/geckodriver");
-			//WebDriverManager.firefoxdriver().setup();
+			System.setProperty("webdriver.gecko.driver", "/Users/naveenautomationlabs/Downloads/geckodriver");
 			driver = new FirefoxDriver();
 			break;
 
@@ -41,95 +34,76 @@ public class BrowserUtil {
 			driver = new SafariDriver();
 			break;
 
+		case "edge":
+			System.setProperty("webdriver.edge.driver", "/Users/naveenautomationlabs/Downloads/edgedriver");
+			driver = new EdgeDriver();
+			break;
+
 		default:
-			System.out.println("plz pass the right browser.....");
-			//throw new Exception("WRONGBROWSER");
-		// break;
+			System.out.println("plz pass the right browser name...." + browserName);
+			break;
 		}
 
 		return driver;
+
 	}
 
-	public void launchUrl(URL url) throws Exception {
-		String newURL = String.valueOf(url);
-		if (newURL == null) {
+	public void launchUrl(String url) {
+
+		if (url == null) {
 			System.out.println("url is null");
-			throw new Exception("URLISNULL");
+			throw new FrameworkException("URLISNULL");
 		}
 
-		if (newURL.length() == 0) {
+		if (url.length() == 0) {
 			System.out.println("url is blank");
-			throw new Exception("URLBLANKEXCEPTION");
+			throw new FrameworkException("URLISBLANK or URLISEMPTY");
 		}
 
-		// http(s) -- homework
-		// http://www.google.com
-		if (newURL.indexOf("http") != 0 && newURL.indexOf("https") != 0) {
-			System.out.println("http(s) is missing in url");
-			throw new Exception("HTTP(s)MISSINGEXCEPTION");
+		// https://wwww.gogle.com
+		if (url.indexOf("http") != 0 && url.indexOf("https") != 0) {
+			System.out.println("http(s) is mising in the URL");
+			throw new FrameworkException("HTTP(S) is missing");
+		}
+
+		driver.get(url);
+	}
+
+	public void launchUrl(URL url) {
+
+		String newUrl = String.valueOf(url);
+
+		if (newUrl == null) {
+			System.out.println("url is null");
+			throw new FrameworkException("URLISNULL");
+		}
+
+		if (newUrl.length() == 0) {
+			System.out.println("url is blank");
+			throw new FrameworkException("URLISBLANK or URLISEMPTY");
+		}
+
+		// https://wwww.gogle.com
+		if (newUrl.indexOf("http") != 0 && newUrl.indexOf("https") != 0) {
+			System.out.println("http(s) is mising in the URL");
+			throw new FrameworkException("HTTP(S) is missing");
 		}
 
 		driver.navigate().to(url);
 	}
 
-	public void launchUrl(String url) throws Exception {
-		if (url == null) {
-			System.out.println("url is null");
-			throw new Exception("URLISNULL");
-		}
-
-		if (url.length() == 0) {
-			System.out.println("url is blank");
-			throw new Exception("URLBLANKEXCEPTION");
-		}
-
-		// http(s) -- homework
-		// http://www.google.com
-		// https
-		if (url.indexOf("http") != 0 && url.indexOf("https") != 0) {
-			System.out.println("http(s) is missing in url");
-			throw new Exception("HTTP(s)MISSINGEXCEPTION");
-		}
-
-		driver.get(url);
-
-	}
-
 	public String getPageTitle() {
-		String title = driver.getTitle();
-		System.out.println("page title : " + title);
-		if (title != null) {
-			return title;
-		} else {
-			System.out.println("getting null title....");
-			return null;
-		}
-	}
+		return driver.getTitle();
 
-	public String getPageUrl() {
-		String url = driver.getCurrentUrl();
-		System.out.println("page title : " + url);
-		if (url != null) {
-			return url;
-		} else {
-			System.out.println("getting null title....");
-			return null;
-		}
 	}
-
-	public void closeBrowser() {
-		if (driver != null) {
-			driver.close();
-			System.out.println("browser is closed.....");
-		}
-	}
-
+	
 	public void quitBrowser() {
-		if (driver != null) {
-			driver.quit();
-			System.out.println("browser is closed.....");
-
-		}
+		driver.quit();
 	}
+	
+	public void closeBrowser() {
+		driver.close();
+	}
+	
 
 }

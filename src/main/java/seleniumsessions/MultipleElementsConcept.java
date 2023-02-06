@@ -7,8 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-
 public class MultipleElementsConcept {
 
 	public static void main(String[] args) {
@@ -19,10 +17,10 @@ public class MultipleElementsConcept {
 		// total number of links/images on the page
 		// print the text of each link on console
 		// but do not print the blank values
-		
-		//print the href value of each link
 
-		WebDriverManager.chromedriver().setup();
+		// print the href value of each link
+
+//		WebDriverManager.chromedriver().setup();
 		WebDriver driver = new ChromeDriver();
 		driver.get("https://www.amazon.com");
 
@@ -37,8 +35,8 @@ public class MultipleElementsConcept {
 //			}
 //
 //		}
-		
-		for(WebElement e : linksList) {
+
+		for (WebElement e : linksList) {
 			String text = e.getText();
 			if (text.length() != 0) {
 				System.out.println(text);

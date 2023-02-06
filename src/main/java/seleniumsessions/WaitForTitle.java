@@ -7,14 +7,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-
 public class WaitForTitle {
 	static WebDriver driver;
 
 	public static void main(String[] args) {
 
-		WebDriverManager.chromedriver().setup();
+		// WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();// browser - ch
 
 		driver.get("https://www.freshworks.com/");

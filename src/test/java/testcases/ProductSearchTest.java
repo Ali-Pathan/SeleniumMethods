@@ -11,46 +11,46 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-
 public class ProductSearchTest {
 
-	
-WebDriver driver;
-	
+	WebDriver driver;
+
 	@BeforeTest
 	public void setup() {
-		WebDriverManager.chromedriver().setup();
+		// WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		driver.manage().deleteAllCookies();
 		driver.get("https://naveenautomationlabs.com/opencart/index.php?route=account/login");
 	}
-	
+
 	@DataProvider
 	public Object[][] productData() {
-			return new Object[][] {
-				{"Macbook"},
-				{"iMac"},
-				{"Samsung"}
+		return new Object[][] {
+				{
+						"Macbook"
+				}, {
+						"iMac"
+				}, {
+						"Samsung"
+				}
 		};
 	}
-	
+
 	@Test(dataProvider = "productData")
 	public void doSearch(String productName) {
 		driver.findElement(By.name("search")).clear();
 		driver.findElement(By.name("search")).sendKeys(productName);
 		driver.findElement(By.cssSelector("div#search button")).click();
 		int productCount = driver.findElements(By.cssSelector("div.row div.product-thumb")).size();
-		
-		Assert.assertTrue(productCount>0);
+
+		Assert.assertTrue(productCount > 0);
 	}
-	
+
 	@AfterTest
 	public void tearDown() {
-		//driver.quit();
+		// driver.quit();
 	}
-	
-	
+
 }

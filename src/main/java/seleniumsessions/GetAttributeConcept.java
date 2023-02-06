@@ -5,8 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-
 public class GetAttributeConcept {
 
 	static WebDriver driver;
@@ -15,7 +13,7 @@ public class GetAttributeConcept {
 
 		//
 
-		WebDriverManager.chromedriver().setup();
+		// WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();
 		driver.get("https://naveenautomationlabs.com/opencart/index.php?route=account/login");
 
